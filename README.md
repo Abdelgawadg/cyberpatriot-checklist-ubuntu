@@ -5,10 +5,12 @@ Ubuntu cyber-patriot checklist
 1. Forensic questions
 
 2. Disable guest user
+
         In /etc/lightdm/lightdm.conf add the line "allow-guest=false"
         Restart with "sudo restart lightdm" (will log you out)
 
 3. Check users
+
         In /etc/passwd check for users that
             Are uid 0 (root users)
             Are not allowed in the readme (comment them out)
@@ -16,18 +18,21 @@ Ubuntu cyber-patriot checklist
         Add any users specified in readme with "adduser [username]"
 
 4. Secure sudo
+
         Check /etc/sudoers to verify only users from group sudo can sudo (do so with visudo)
         Verify only admins have access to /etc/sudoers and /etc/sudoers.d
         Check /etc/group and remove non-admins from sudo and admin groups
         Verify with the command "sudo -l -U [username]" to see sudo permissions
 
 5. Check for unauthorized files/packages
+
         Use "cd /home" then "ls -Ra *"  to find unauthorized files (can also use tree for this)
             Can also use "ls *.[filetype]" to search by file types
         Check for unauthorized packages with "apt list --installed"
         Check for unauthorized services with "service --status-all" (can also use Synaptic or BUM for managing services)
 
 6. Change password requirements
+
         In /etc/login.defs add
             PASS_MIN_DAYS 7
             PASS_MAX_DAYS 90
@@ -38,10 +43,12 @@ Ubuntu cyber-patriot checklist
         In /etc/pam.d/common-auth add "deny=5 unlock_time=1800" to the end of the line with "pam_tally2.so" in it to add an account lockout policy
 
 7. Change all passwords
+
         Use the command "passwd [user]" to change passwords to a secure password
         Use "passwd -a -S" to verify all passwords are set up correctly
 
 8. Enable auto-updates + other small things
+
         In GUI go to settings and under updates set everything to the best available option
         In Firefox/Chrome/browser go to settings and read through and set everything to the most secure option (auto-updates, pop-up blocker, block dangerous downloads, display warning on known bad sites, etc.)
         Start updates with "apt-get update" and "apt-get upgrade"
@@ -50,12 +57,14 @@ Ubuntu cyber-patriot checklist
         Use "apt-get autoremove --purge samba" to remove samba
 
 9. Secure ports
+
         Use the command "ss -ln" to check for open ports that are not on the loopback
         For open ports that need to be closed
             Use "lsof -i :[port]" then copy the program listening on the port with "whereis [program]" then copy where the program is with "dpkg -S [location]" then remove the associated package with "apt-get purge [package]"
             Verify the removal with "ss -ln"
 
 10. Secure the network
+
         Enable the firewall with "ufw enable"
         Enable syn cookie protection with "sysctl -n net.ipv4.tcp_syncookies"
         Disable IPv6 with "echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf" (make sure it isn't needed in read-me)
@@ -68,6 +77,7 @@ Ubuntu cyber-patriot checklist
             Add new rules with "ufw allow [port]"
 
 11. Secure services
+
         Check config files for any services installed to secure them (PHP, SQL, WordPress, FTP, SSH, and Apache are common services that need to be secured)
             For hosting services such as WordPress, FTP, or websites verify the files are not sensitive or prohibited
             Google "how to secure [service] ubuntu"
@@ -75,17 +85,20 @@ Ubuntu cyber-patriot checklist
         Verify the services do not use any default credentials
 
 12. Check permissions for sensitive files
+
         Check the permissions of the files with "ls -al"
             Check /etc/passwd, /etc/group, /etc/shadow, /etc/sudoers, and /var/www
         The permissions should be "-rw-r----- root: shadow"
         Use "chmod -R 640 [path]" to modify the permissions
 
 13. Check for malware
+
         Check /etc/rc.local to see if it contains anything other than "exit 0"
         Use "ps -aux" to list running services, check if lkl, uberkey, THC-vlogger, PyKeylogger, or logkeys are running
         Install rkhunter then update the properties with "rkhunter --propupd" then run with "rkhunter --checkall"
 
 14. Secure SSH (if needed in readme)
+
         In /etc/ssh/sshd_config
             Change the port from default
             Set LoginGraceTime to 20
@@ -98,6 +111,7 @@ Ubuntu cyber-patriot checklist
         Restart ssh with "service sshd restart"
 
 15. Install security packages (not sure if needed)
+
             Auditd:
                 Install with "apt-get install auditd"
                 Run it with "auditctl -e 1"
