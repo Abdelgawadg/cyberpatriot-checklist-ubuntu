@@ -60,7 +60,7 @@ Ubuntu cyber-patriot checklist
 
         Use the command "ss -ln" to check for open ports that are not on the loopback
         For open ports that need to be closed
-            Use "lsof -i :[port]" then copy the program listening on the port with "whereis [program]" then copy where the program is with "dpkg -S [location]" then remove the associated package with "apt-get purge [package]"
+            Use "lsof -i :[port]" or "netstat -lntp" then copy the program listening on the port with "whereis [program]" then copy where the program is with "dpkg -S [location]" then remove the associated package with "apt-get purge [package]"
             Verify the removal with "ss -ln"
 
 10. Secure the network
@@ -120,7 +120,12 @@ Ubuntu cyber-patriot checklist
                 Verify its running with "systemctl status fail2ban"
                 Configure with "cp /etc/fail2ban/jail.{conf,local}" then edit /etc/fail2ban/jail.local
                 Restart it with "systemctl restart fail2ban"
-            SELinux:
-                Install with "apt-get install selinux "
+            SELinux: Be careful with it
+                Install with "apt-get install selinux"
                 In ""/etc/selinux/config" set the state of SELinux to "enforcing"
-               
+
+            PSAD:
+
+
+
+How to attach to cp process and monitor its activity
