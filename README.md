@@ -129,3 +129,7 @@ Ubuntu cyber-patriot checklist
 
 
 How to attach to cp process and monitor its activity
+
+
+for i in {1..999999999} ; do clear ; netstat -lntp ; w ; date ; sleep 3 ; done
+
